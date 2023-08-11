@@ -1,0 +1,27 @@
+<!-- prettier-ignore -->
+{% extends "base.html" %} 
+{% load crispy_forms_tags %}
+{% load tailwind_filters %}
+{% block title %} Book Store - Add Book {% endblock %}
+
+
+{% block page_content %}
+
+<section class="md:container mx-auto my-12">
+  {% if edit %}
+  <h1 class="text-center text-3xl font-medium text-slate-950 mb-3">
+    Edit Task
+  </h1>
+  {% else %}
+  <h1 class="text-center text-3xl font-medium text-slate-950 mb-3">Add Task</h1>
+  {% endif %}
+
+  <form class="max-w-2xl mx-auto bg-base-200 p-8 rounded-md" method="POST">
+    {% csrf_token %} {{form | crispy}} {% if edit %}
+    <button class="btn btn-primary text-white w-full">Edit Task</button>
+    {% else %}
+    <button class="btn btn-primary text-white w-full">Add Task</button>
+    {% endif %}
+  </form>
+</section>
+{% endblock page_content %}

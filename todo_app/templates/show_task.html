@@ -1,0 +1,69 @@
+<!-- prettier-ignore -->
+{% extends "base.html" %} 
+{% block title %} Todo App {% endblock %}
+
+{% block page_content %}
+
+<section class="px-4 my-12">
+  <h1 class="text-center text-3xl font-medium text-slate-950 mb-3">
+    Your Added Tasks
+  </h1>
+  {% if tasks %}
+  <div class="overflow-x-auto">
+    <table class="table text-center border mt-5">
+      <!-- head -->
+      <thead class="bg-slate-100 text-lg">
+        <tr>
+          <th>Task Name</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- row 1 -->
+        {% for task in tasks %}
+
+        <tr>
+          <td>{{task.task_title}}</td>
+          <td>{{task.task_description}}</td>
+          {% if task.is_completed %}
+          <td>
+            <span class="bg-red-100 px-2 py-1 rounded-full">completed</span>
+          </td>
+          {% else %}
+          <td>
+            <span class="bg-red-100 px-2 py-1 rounded-full">incomplete</span>
+          </td>
+          {% endif%}
+          <th>
+            <a
+              href="{% url 'edit_task' pk=task.id %}"
+              class="btn btn-success btn-xs"
+              >Edit</a
+            >
+            <a
+              href="{% url 'delete_task' pk=task.id %}"
+              class="btn btn-error btn-xs"
+              >Delete</a
+            >
+            <a
+              href="{% url 'comp_task' pk=task.id %}"
+              class="btn btn-info btn-xs"
+              >Completed</a
+            >
+          </th>
+        </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="px-4 md:container">
+    <h1 class="text-4xl text-red-700 text-center my-11">No Data found!</h1>
+  </div>
+  {% endif %}
+</section>
+
+{% endblock page_content %}
